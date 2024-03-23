@@ -22,4 +22,6 @@ async def cmd_start(msg: Message, pool):
 
 
 def register_start_handlers(router, pool):
-    router.message.register(lambda msg: cmd_start(msg, pool), Command(commands=['start', 'run']))
+    async def start_handler(msg):
+        await cmd_start(msg, pool)
+    router.message.register(start_handler, Command(commands=['start', 'run']))

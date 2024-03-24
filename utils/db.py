@@ -1,7 +1,9 @@
+import os
 import asyncpg
 
 async def create_pool():
-    return await asyncpg.create_pool(dsn='postgresql://ivan@localhost/postgres')
+    return await asyncpg.create_pool(dsn=os.environ['DATABASE_URL'])
+
 async def create_tables(pool):
     async with pool.acquire() as conn:
         await conn.execute('''

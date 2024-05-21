@@ -1,16 +1,18 @@
-# import os
+import os
 import asyncpg
 
 async def create_pool():
-    return await asyncpg.create_pool(dsn='postgresql://ivan@localhost/postgres')
+    dsn = os.getenv('DATABASE_URL')
+    if not dsn:
+        raise ValueError("Не удалось найти переменную среды DATABASE_URL")
+    return await asyncpg.create_pool(dsn=dsn)
+
 async def create_tables(pool):
-    async with pool.acquire() as conn:
-        await conn.execute('''
+    async with pool.acquire() as connection:
+        await connection.execute('''
             CREATE TABLE IF NOT EXISTS users (
                 id SERIAL PRIMARY KEY,
-                telegram_id BIGINT UNIQUE NOT NULL,
-                achievements TEXT[],
-                audio_codes TEXT[]
+                username TEXT NOT NULL
             );
         ''')
 

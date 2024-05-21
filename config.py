@@ -14,5 +14,5 @@ if YOUR_DOMAIN is None or YOUR_WEBHOOK_PATH is None:
 
 WEBHOOK_URL = f"https://{YOUR_DOMAIN}/{YOUR_WEBHOOK_PATH}"
 WEBAPP_HOST = '0.0.0.0'
-WEBAPP_PORT = int(os.getenv("PORT", 3000))  # Используем порт из переменных среды или 3000 по умолчанию
+WEBAPP_PORT = int(os.getenv("PORT", 3000))
 WEBHOOK_PATH = f'/{YOUR_WEBHOOK_PATH}'

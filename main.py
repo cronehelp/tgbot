@@ -33,12 +33,16 @@ async def handle(request: web.Request) -> web.Response:
     await dp.feed_update(bot, update)
     return web.Response()
 
+async def index(request):
+    return web.Response(text="Hello, this is the bot server!")
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 
     app = web.Application()
+    app.router.add_post(WEBHOOK_PATH, handle)
+    app.router.add_get('/', index)
     app.on_startup.append(on_startup)
     app.on_shutdown.append(on_shutdown)
-    app.router.add_post(WEBHOOK_PATH, handle)
 
     web.run_app(app, host=WEBAPP_HOST, port=WEBAPP_PORT)

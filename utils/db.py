@@ -1,5 +1,9 @@
 import os
+from dotenv import load_dotenv
 import asyncpg
+
+# Загрузить переменные окружения из файла .env
+load_dotenv()
 
 async def create_pool():
     dsn = os.getenv('DATABASE_URL')
